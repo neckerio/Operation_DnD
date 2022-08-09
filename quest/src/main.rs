@@ -1,4 +1,4 @@
-// Feeling things out
+// TODO: Do everything all over again ...but try not to delete it
 
 struct Character {
     name: String,
