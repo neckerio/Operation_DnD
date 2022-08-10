@@ -1,5 +1,16 @@
 // TODO: Do everything all over again ...but try not to delete it
 
+// Feeling things out
+// enum with variant values for class/race... make a impl method based on sub class/race?
+// use the match enum binding... somewhere. Maybe with the read_lines return?
+
+
+enum Class {
+    Fighter,
+    Ranger,
+    Rogue,
+    Cleric,
+}
 struct Character {
     name: String,
     class: String,
