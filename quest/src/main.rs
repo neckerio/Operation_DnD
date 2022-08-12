@@ -1,9 +1,8 @@
-// TODO: Do everything all over again ...but try not to delete it
-
 // Feeling things out
 // enum with variant values for class/race... make a impl method based on sub class/race?
 // use the match enum binding... somewhere. Maybe with the read_lines return?
-
+use mariadb::connect_to_database;
+mod mariadb;
 
 enum Class {
     Fighter,
@@ -11,6 +10,7 @@ enum Class {
     Rogue,
     Cleric,
 }
+
 struct Character {
     name: String,
     class: String,
@@ -63,4 +63,6 @@ fn main() {
         char1.armor_class(),
         char1.hit_points()
     );
+
+    connect_to_database();
 }
