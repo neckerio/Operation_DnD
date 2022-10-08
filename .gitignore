@@ -1,0 +1,3 @@
+# ignore cargo.lock
+Cargo.lock
+quest/target
