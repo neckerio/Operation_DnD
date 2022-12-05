@@ -2,6 +2,7 @@
 // enum with variant values for class/race... make a impl method based on sub class/race?
 // use the match enum binding... somewhere. Maybe with the read_lines return?
 use mariadb::connect_to_database;
+use sqlx::Result;
 mod mariadb;
 
 enum Class {
@@ -37,6 +38,60 @@ impl Character {
         self.constitution + 10
     }
 }
+
+fn parse_args() -> Result<Character, String> {
+    let mut character = Character::default();
+    let mut fields = vec![
+        "Name",
+        "Class",
+        "Race",
+        "Level",
+        "Age",
+        "Size",
+        "Height",
+        "Weight",
+        "Strength",
+        "Dexterity",
+        "Constitution",
+        "Intelligence",
+        "Wisdom",
+        "Charisma"];
+
+    loop {
+        println!("Please enter your Character's Stats:");
+        for field in fields {
+            println!("{}:",  field);
+            let value = read!("{}\n");
+            match field {
+                "Name" => character.name = value,
+                "Class" => character.class = value,
+                "Race" => character.race = value,
+                "Level" => character.level = value,
+                "Age" => character.age = value,
+                "Size" => character.size = value,
+                "Height" => character.height = value,
+                "Weight" => character.weight = value,
+                "Strength" => character.strength = value,
+                "Dexterity" => character.dexterity = value,
+                "Constitution" => character.constitution = value,
+                "Intelligence" => character.intelligence = value,
+                "Wisdom" => character.wisdom = value,
+                "Charisma" => character.charisma = value,
+                _ => (),
+            }
+            fields.remove(field);
+        }
+        if field.is_empty() {
+            break;
+        }
+    }
+    Ok(character)
+}
+
+//Secret Message: my favorite number is 33.
+
+
+
 
 fn main() {
     let char1 = Character {
