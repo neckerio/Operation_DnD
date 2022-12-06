@@ -1,6 +1,3 @@
-// Feeling things out
-// enum with variant values for class/race... make a impl method based on sub class/race?
-// use the match enum binding... somewhere. Maybe with the read_lines return?
 use std::io;
 
 struct Character {
@@ -43,53 +40,73 @@ impl Default for Character {
 }
 
 
-fn print_characters(chars: &Vec<Character>) {
-    for character in chars {
-	println!("\n");
-	println!("Name: {}", character.name);
-	println!("Class: {}", character.class);
-	println!("Race: {}", character.race);
-	println!("Level: {}", character.level);
-	println!("Age: {}", character.age);
-	println!("Size: {}", character.size);
-	println!("Height: {}", character.height);
-	println!("Weight: {}", character.weight);
-	println!("Strength: {}", character.strength);
-	println!("Dexterity: {}", character.dexterity);
-	println!("Constitution: {}", character.constitution);
-	println!("Intelligence: {}", character.intelligence);
-	println!("Wisdom: {}", character.wisdom);
-	println!("Charisma: {}", character.charisma);
-	println!("\n");
-    }
-}
-
-
 fn main() {
-    // Create vec of Characters
+    // Create a Vec to store Characters
     let mut creations: Vec<Character> = Vec::new();
 
-    // Loop Character Creation
+    // Loop until the user enters "Done"
     loop {
-        let mut character = Character::default();
+	let mut character = Character::default();
 
-    //Read user input for the Name field
-        println!("Please enter your Character's name:");
-        std::io::stdin().read_line(&mut character.name).expect("Failed to read input");
-	character.name = character.name.trim().to_string();
+	// Create a Vec of field names that have not been set
+	let mut unset_fields = vec![
+	    "name",
+	    "class",
+	    "race",
+	    "level",
+	    "age",
+	    "size",
+	    "height",
+	    "weight",
+	    "strength",
+	    "dexterity",
+	    "constitution",
+	    "intelligence",
+	    "wisdom",
+	    "charisma",
+	];
 
-    // Add Character to Character Vec
-    creations.push(character);
+	// Loop until all fields have been set or Done and print fields which have not been set
+	loop {
+	    println!("Enter a Character Attribute followed by the associated Value\n");
+	    println!("Or 'done' when you are finished\n");
+	    println!("Unset Attributes:\n {}", unset_fields.join(","));
 
-    // Give option to create more
-    println!("Create another Character? (y/n)");
-    let mut answer = String::new();
-    std::io::stdin().read_line(&mut answer).expect("Failed to read input");
-    if answer.trim() == "n" {
-	print_characters(&creations);
-        break;
+	    let mut input = String::new();
+	    std::io::stdin().read_line(&mut input).expect("Failed to read input");
+
+	    let input = input.trim();
+
+	    if input == "done" {
+		break;
+	    }
+	    
+	    // Split the user's input into 'field' and 'value'
+	    let mut parts = input.splitn(2, " ");
+	    let field = parts.next().unwrap();
+	    let value = parts.next().unwrap();
+
+	    // Use a Match statement to set appropriate value to fields
+	    match field {
+		"name" => character.name = value.to_string(),
+		"class" => character.class = value.to_string(),
+		"race" => character.race = value.to_string(),
+		"level" => character.level = value.parse().expect("Failed to parse level"),
+		"age" => character.age = value.parse().expect("Failed to parse age"),
+		"size" => character.size = value.to_string(),
+		"height" => character.height = value.to_string(),
+		"weight" => character.weight = value.parse().expect("Failed to parse weight"),
+		"strength" => character.strength = value.parse().expect("Failed to parse strength"),
+		"dexterity" => character.dexterity = value.parse().expect("Failed to parse dexterity"),
+		"constitution" => character.constitution = value.parse().expect("Failed to parse constitution"),
+		"intelligence" => character.intelligence = value.parse().expect("Failed to parse intelligence"),
+		"wisdom" => character.wisdom = value.parse().expect("Failed to parse wisdom"),
+		"charisma" => character.charisma = value.parse().expect("Failed to parse charisma"),
+		_ => {}
+	    }
+
+	}
     }
 
 }
 
-}
