@@ -42,55 +42,30 @@ impl Default for Character {
     }
 }
 
-// fn parse_args() -> Result<Character, String> {
-//     let mut character = Character::default;
-//     let mut fields = vec![
-//         "Name",
-//         "Class",
-//         "Race",
-//         "Level",
-//         "Age",
-//         "Size",
-//         "Height",
-//         "Weight",
-//         "Strength",
-//         "Dexterity",
-//         "Constitution",
-//         "Intelligence",
-//         "Wisdom",
-//         "Charisma"];
-
-//     loop {
-//         println!("Please enter your Character's Stats:");
-//         for field in fields {
-//             println!("{}:",  field);
-//             let value = read!("{}\n");
-//             match field {
-//                 "Name" => character.name = value,
-//                 "Class" => character.class = value,
-//                 "Race" => character.race = value,
-//                 "Level" => character.level = value,
-//                 "Age" => character.age = value,
-//                 "Size" => character.size = value,
-//                 "Height" => character.height = value,
-//                 "Weight" => character.weight = value,
-//                 "Strength" => character.strength = value,
-//                 "Dexterity" => character.dexterity = value,
-//                 "Constitution" => character.constitution = value,
-//                 "Intelligence" => character.intelligence = value,
-//                 "Wisdom" => character.wisdom = value,
-//                 "Charisma" => character.charisma = value,
-//                 _ => (),
-//             }
-//             fields.remove(field);
-//         }
-//         if fields.is_empty() {
-//             break;
-//         }
-//     }
-//     Ok(character)
-// }
-
 
 fn main() {
+    // Create vec of Characters
+    let mut characters: Vec<Character> = Vec::new();
+
+    // Loop Character Creation
+    loop {
+        let mut character = Character::default();
+
+    //Read user input for the Name field
+        println!("Please enter your Character's name:");
+        std::io::stdin().read_line(&mut character.name).expect("Failed to read input");
+
+    // Add Character to Character Vec
+    characters.push(character);
+
+    // Give option to create more
+    println!("Create another Character? (y/n)");
+    let mut answer = String::new();
+    std::io::stdin().read_line(&mut answer).expect("Failed to read input");
+    if answer.trim() == "n" {
+        break;
+    }
+
+    }
+
 }
