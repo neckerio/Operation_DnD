@@ -3,6 +3,7 @@ use std::io;
 
 struct Character {
     name: String,
+    class: String,
     level: i32,
 }
 
@@ -11,6 +12,7 @@ impl Default for Character {
     fn default() -> Self {
         Character {
 		name: String::from(""),
+		class: String::from(""),
 		level: 0,
         }
     }
@@ -24,6 +26,7 @@ fn main() {
     // Create a vector of field names
     let fields = vec![
 	"name",
+	"class",
 	"level",
     ];
 
@@ -63,20 +66,27 @@ fn main() {
 	// Set field on the character instance
 	match input {
 	    "name" => character.name = value.to_owned(),
+	    "class" => character.class = value.to_owned(),
 	    "level" => character.level = value.parse().unwrap(),
 	    _ => (),
 	}
 
 	// Create a vector for the remaining fields
+	// iterate and filter out any character.[field] that has a value
 	let remaining_fields: Vec<&&str> = fields
 	    .iter()
-	    .filter(|field| character.name == "" || character.level == 0)
+	    .filter(|field| { 
+		match field {
+		    &&"name" => character.name == "",
+		    &&"class" => character.class == "",
+		    &&"level" => character.level == 0,
+		    _ => false,
+		    }
+		})
 	    .collect();
+
 
 	// Print a message indicating the remaining fields to be filled
 	println!("Remaining fields: {:?}", remaining_fields);
     }
 }
-
-
-
