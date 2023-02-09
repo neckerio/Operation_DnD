@@ -30,6 +30,8 @@ fn main() {
 	"level",
     ];
 
+	println!("Remaining fields: {:?}", fields);
+
     // Use a loop to continuously prompt the user for input
     loop {
 	println!("Please enter the name of the field you want to set (or 'done' to exit):");
